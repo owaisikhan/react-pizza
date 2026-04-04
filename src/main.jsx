@@ -1,22 +1,44 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
+import { createBrowserRouter } from "react-router";
+import { RouterProvider } from "react-router/dom";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+import Home from "./pages/Home.jsx";
+import Menu from "./features/menu/Menu.jsx";
+import { loader as menuLoader } from "./features/menu/Menu.jsx";
+import Error from "./components/Error.jsx";
+import Cart from "./features/cart/Cart.jsx";
+import Order from "./features/order/Order.jsx";
+import OrderOverview from "./features/order/OrderOverview.jsx";
+import { loader as orderLoader } from "./features/order/OrderOverview.jsx";
+import { action as orderAction } from "./features/order/Order.jsx";
 
-// git remote add origin https://github.com/your-username/your-repo.git
-// git branch -M main               # rename branch to main
-// git push -u origin main          # push and set upstream
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <Error />,
+    children: [
+      { index: true, element: <Home />, errorElement: <Error /> },
+      { path: "/home", element: <Home /> },
+      { path: "/cart", element: <Cart /> },
+      {
+        path: "/menu",
+        element: <Menu />,
+        errorElement: <Error />,
 
-// echo "# fdsf" >> README.md
-// git init
-// git add README.md
-// git commit -m "first commit"
-// git branch -M main
-// git remote add origin https://github.com/Ammar-Sagheer/fdsf.git
-// git push -u origin main
+        loader: menuLoader,
+      },
+      { path: "/order", element: <Order />, action: orderAction },
+      {
+        path: "/order/:orderID",
+        element: <OrderOverview />,
+        loader: orderLoader,
+      },
+    ],
+  },
+]);
+const root = document.getElementById("root");
+ReactDOM.createRoot(root).render(<RouterProvider router={router} />);

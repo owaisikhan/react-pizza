@@ -1,8 +1,16 @@
+import { Outlet } from "react-router";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 function App() {
-  const a = 5;
   return (
     <div>
-      <h1 className="text-2xl text-blue-300">hello world</h1>
+      <Header />
+      <div className="overflow-scroll">
+        <main className="mx-auto max-w-3xl">
+          <Outlet />
+        </main>
+      </div>
+      <Footer />
     </div>
   );
 }
