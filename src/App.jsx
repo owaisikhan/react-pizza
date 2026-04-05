@@ -3,10 +3,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 function App() {
   return (
-    <div>
+    <div className="flex h-screen flex-col bg-stone-300">
       <Header />
-      <div className="overflow-scroll">
-        <main className="mx-auto max-w-3xl">
+      <div className="flex-auto overflow-y-auto">
+        <main className="">
           <Outlet />
         </main>
       </div>
