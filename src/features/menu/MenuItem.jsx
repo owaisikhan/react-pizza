@@ -6,7 +6,7 @@ function MenuItem({ pizza }) {
   function addToCart() {}
 
   return (
-    <li className="mx-4 flex justify-between gap-8 py-2">
+    <li className="flex justify-between gap-8 py-2">
       <img className="h-auto w-32" src={imageUrl} alt="" />
       <div className="relative flex w-full flex-col items-start justify-between gap-2">
         <p className="font-semibold uppercase">{name}</p>

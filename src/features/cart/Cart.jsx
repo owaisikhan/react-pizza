@@ -26,10 +26,18 @@ function Cart() {
   function handleOrder() {
     navigate("/order");
   }
+
+  function handleClearCart() {
+    // Logic to clear the cart goes here
+    console.log("Cart cleared");
+  }
   return (
-    <div>
-      <CartOverview cart={cart} />;
-      <Button onclick={handleOrder}>Order Now</Button>
+    <div className="mx-8 mt-8">
+      <CartOverview cart={cart} />
+      <div className="mt-8 flex justify-between">
+        <Button onclick={handleOrder}>Order Now</Button>
+        <Button onclick={handleClearCart}>Clear Cart</Button>
+      </div>
     </div>
   );
 }
