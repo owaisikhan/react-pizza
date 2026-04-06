@@ -17,7 +17,7 @@ function OrderOverview() {
 
   console.log(order);
   return (
-    <div className="mx-auto flex h-full max-w-4xl flex-col gap-4 px-8 pt-6">
+    <div className="mx-auto flex h-full max-w-4xl flex-col gap-8 px-8 pt-6">
       <div className="mt-4 flex flex-wrap justify-between gap-4">
         <p className="text-xl font-bold">Order# {id} - Status</p>
         <p className="space-x-4">
@@ -32,11 +32,11 @@ function OrderOverview() {
           </span>
         </p>
       </div>
-      <div className="mb-2 flex justify-between gap-4 bg-stone-200 px-2 py-4 text-sm">
+      <div className="text-md mb-2 flex justify-between gap-4 rounded-xl bg-stone-300 px-3 py-6">
         <p className="">Only 40 minutes until delivery😊</p>
         <p>Estimated Delivery: {estimatedDelivery.split("T")[0]}</p>
       </div>
-      <div className="d divide-y divide-stone-500 border-y border-stone-500">
+      <div className="d divide-y divide-stone-400 border-y border-stone-400">
         {cart.map((item) => {
           const { name, quantity, totalPrice, pizzaId, ingredients } = item;
           return (
@@ -58,7 +58,7 @@ function OrderOverview() {
         })}
       </div>
 
-      <div className="mt-4 flex flex-col justify-around gap-4 bg-stone-200 px-4 py-2">
+      <div className="mt-4 flex flex-col justify-around gap-4 rounded-xl bg-stone-300 px-4 py-2">
         <div className="flex justify-between">
           <p>Price pizza: </p>
           <span>${orderPrice}</span>
