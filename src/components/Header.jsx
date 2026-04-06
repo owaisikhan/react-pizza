@@ -3,16 +3,16 @@ import Username from "../features/user/Username";
 
 function Header() {
   return (
-    <div className="flex items-center justify-between border-b border-stone-700 bg-amber-400 px-4 py-2 text-nowrap">
-      <span className="space text-xl tracking-wider uppercase">
+    <div className="flex items-center justify-between border-b border-stone-700 bg-amber-400 px-4 py-4 text-nowrap">
+      <span className="space text-2xl tracking-wider uppercase">
         <Link to="/">REACT PIZZA Co.</Link>
       </span>
       <input
         type="text"
         placeholder="Search..."
-        className="focus:ring- w-1/3 rounded-2xl border bg-yellow-100 px-2 py-1 text-sm transition-all duration-300 hover:border-stone-900 focus:w-1/2 focus:ring-1 focus:ring-amber-600/50 focus:ring-offset-2 focus:ring-offset-amber-400 focus:outline-none md:focus:w-1/2"
+        className="w-4/10 rounded-2xl border bg-yellow-100 px-4 py-2 text-sm transition-all duration-300 hover:border-stone-900 focus:w-1/2 focus:ring-1 focus:ring-amber-600/50 focus:ring-offset-2 focus:ring-offset-amber-400 focus:outline-none md:w-3/10 md:focus:w-1/2"
       />
-      <span className="hidden sm:block">
+      <span className="hidden text-2xl tracking-wider uppercase sm:block">
         <Username />
       </span>
     </div>

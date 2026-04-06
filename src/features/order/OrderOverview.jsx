@@ -17,7 +17,7 @@ function OrderOverview() {
 
   console.log(order);
   return (
-    <div className="mx-auto flex h-full max-w-xl flex-col gap-4">
+    <div className="mx-auto flex h-full max-w-4xl flex-col gap-4 px-8 pt-6">
       <div className="mt-4 flex flex-wrap justify-between gap-4">
         <p className="text-xl font-bold">Order# {id} - Status</p>
         <p className="space-x-4">

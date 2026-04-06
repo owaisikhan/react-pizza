@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="flex h-dvh flex-col">
       <Header />
-      <div className="flex flex-1 overflow-scroll bg-stone-100">
+      <div className="flex flex-1 overflow-x-hidden overflow-y-auto bg-stone-200">
         <main className="w-full flex-1 items-center justify-center">
           <Outlet />
         </main>
