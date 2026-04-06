@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import Username from "../features/user/Username";
+import { useSelector } from "react-redux";
 
 function Header() {
   return (

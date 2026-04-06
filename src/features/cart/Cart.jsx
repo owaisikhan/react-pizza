@@ -32,7 +32,7 @@ function Cart() {
     console.log("Cart cleared");
   }
   return (
-    <div className="mx-8 mt-8">
+    <div className="mx-auto mt-8 max-w-6/10 md:max-w-6/10">
       <CartOverview cart={cart} />
       <div className="mt-8 flex justify-between">
         <Button onclick={handleOrder}>Order Now</Button>

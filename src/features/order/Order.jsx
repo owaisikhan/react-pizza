@@ -3,6 +3,7 @@
 import { Form, redirect } from "react-router";
 import Button from "../../components/Button";
 import { createOrder } from "../../services/apiPizza";
+import { useSelector } from "react-redux";
 const orderID = "IIDSAT";
 
 const cart = [
@@ -23,11 +24,12 @@ const cart = [
 ];
 
 function Order() {
+  const userName = useSelector((state) => state.user.name);
   return (
     // <Form action={`/order/${orderID}`} method="post">
-    <Form method="post" className="mx-4 mt-8 flex flex-col gap-4">
+    <Form method="post" className="mx-4 mt-8 flex flex-col gap-4 sm:max-w-7/10">
       <p className="mb-2 text-2xl font-medium">Ready to Order! Lets Go</p>
-      <div className="flex w-full items-center gap-4">
+      <div className="flex items-center gap-4">
         <label className="w-30" htmlFor="customer">
           First Name
         </label>
@@ -36,8 +38,9 @@ function Order() {
           id="customer"
           name="customer"
           placeholder="name"
+          defaultValue={userName}
           required
-          className="mx-2 flex-1 rounded-2xl border-2 border-stone-300 px-4 py-1 text-stone-800 transition-all duration-700 focus:w-full focus:border-stone-500 focus:outline-none"
+          className="mx-2 flex-1 rounded-2xl border-2 border-stone-400 px-4 py-1 text-stone-800 transition-all duration-700 focus:w-full focus:border-stone-500 focus:outline-none"
         />
       </div>
       <div className="flex w-full items-center gap-4">
@@ -50,7 +53,7 @@ function Order() {
           name="phone"
           placeholder="phone number"
           required
-          className="mx-2 flex-1 rounded-2xl border-2 border-stone-300 px-4 py-1 text-stone-800 transition-all duration-700 focus:w-full focus:border-stone-500 focus:outline-none"
+          className="mx-2 flex-1 rounded-2xl border-2 border-stone-400 px-4 py-1 text-stone-800 transition-all duration-700 focus:w-full focus:border-stone-500 focus:outline-none"
         />
       </div>
       <div className="flex w-full items-center gap-4">
@@ -63,7 +66,7 @@ function Order() {
           name="address"
           placeholder="address"
           required
-          className="mx-2 flex-1 rounded-2xl border-2 border-stone-300 px-4 py-1 text-stone-800 transition-all duration-700 focus:w-full focus:border-stone-500 focus:outline-none"
+          className="mx-2 flex-1 rounded-2xl border-2 border-stone-400 px-4 py-1 text-stone-800 transition-all duration-700 focus:w-full focus:border-stone-500 focus:outline-none"
         />
       </div>
       <div className="mb-4 flex items-center gap-4">
@@ -77,6 +80,7 @@ function Order() {
         <label htmlFor="Priority">Want to give your Order Priority</label>
       </div>
       <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+
       <span className="self-center">
         <Button type="submit"> Order Now </Button>
       </span>
@@ -87,6 +91,8 @@ function Order() {
 export async function action({ request }) {
   const formData = await request.formData();
   const parsedData = Object.fromEntries(formData);
+  console.log(parsedData);
+
   const newOrder = {
     ...parsedData,
     // priority: parsedData.priority === "on",
@@ -94,7 +100,7 @@ export async function action({ request }) {
     cart: JSON.parse(parsedData.cart),
   };
   const data = await createOrder(newOrder);
-  console.log(data);
+  // console.log(data);
   console.log("hello");
   return redirect(`/order/${data.id}`);
   // return null;

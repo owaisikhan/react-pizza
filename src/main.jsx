@@ -14,6 +14,8 @@ import Order from "./features/order/Order.jsx";
 import OrderOverview from "./features/order/OrderOverview.jsx";
 import { loader as orderLoader } from "./features/order/OrderOverview.jsx";
 import { action as orderAction } from "./features/order/Order.jsx";
+import { Provider } from "react-redux";
+import { store } from "./store.js";
 
 const router = createBrowserRouter([
   {
@@ -41,4 +43,8 @@ const router = createBrowserRouter([
   },
 ]);
 const root = document.getElementById("root");
-ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(root).render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>,
+);
