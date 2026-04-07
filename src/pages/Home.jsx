@@ -22,7 +22,7 @@ function Home() {
       onSubmit={handleSubmit}
       className="flex h-full w-full items-center justify-center"
     >
-      <div className="flex w-7/10 max-w-xl flex-col items-center gap-4 rounded-3xl bg-stone-100 py-16 text-sm sm:text-xl md:py-32 md:text-2xl lg:text-3xl">
+      <div className="flex w-7/10 max-w-xl flex-col items-center gap-4 rounded-3xl bg-stone-100 py-16 text-sm shadow-lg shadow-stone-600 sm:text-xl md:py-32 md:text-2xl lg:text-3xl">
         <div className="flex h-14 w-14 items-center justify-center rounded-full border border-amber-100 bg-amber-50">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             <path
