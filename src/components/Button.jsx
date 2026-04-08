@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-function Button({ children, onclick, to, type }) {
+function Button({ children, onClick, to, type }) {
   const login =
     "w-7/10 bg-blue-300 hover:bg-blue-400 opacity-25 hover:opacity-100 rounded-xl py-3 text-sm font-medium text-stone-900 transition-all duration-300 hover:shadow-lg hover:shadow-blue-400/50";
 
@@ -11,11 +11,7 @@ function Button({ children, onclick, to, type }) {
     return <Link to={to}>{children}</Link>;
   }
   return (
-    <button
-      onClick={onclick}
-      type={type}
-      className={type === "login" ? login : base}
-    >
+    <button onClick={onClick} className={type === "login" ? login : base}>
       {children}
     </button>
   );

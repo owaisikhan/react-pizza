@@ -1,9 +1,23 @@
+import { useSelector, useDispatch } from "react-redux";
 import Button from "../../components/Button";
+import { addToCart } from "../cart/cartSlice";
 
 function MenuItem({ pizza }) {
-  const { name, unitPrice, soldOut, ingredients, imageUrl } = pizza;
+  const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
+  const cart = useSelector((state) => state.cart.cart);
+  // console.log(cart);
+  const dispatch = useDispatch();
 
-  function addToCart() {}
+  function handleAddToCart() {
+    const newItem = {
+      pizzaId: id,
+      name,
+      quantity: 1,
+      unitPrice,
+      totalPrice: unitPrice * 1,
+    };
+    dispatch(addToCart(newItem));
+  }
 
   return (
     <li className="mx-4 flex justify-between gap-10 border-b border-stone-500 py-2">
@@ -22,7 +36,7 @@ function MenuItem({ pizza }) {
         </div>
 
         <span className="absolute top-1/2 right-4 -translate-y-1/2">
-          <Button onClick={addToCart}>Add to cart</Button>
+          <Button onClick={handleAddToCart}>Add to cart</Button>
         </span>
       </div>
     </li>

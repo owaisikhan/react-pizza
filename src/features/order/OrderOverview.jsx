@@ -1,9 +1,23 @@
-import { useLoaderData } from "react-router";
+import { useFetcher, useLoaderData } from "react-router";
 import { getOrder } from "../../services/apiPizza";
+import { useEffect, useState } from "react";
 
 // const orderID = "IIDSAT";
 
 function OrderOverview() {
+  const fetcher = useFetcher();
+  useEffect(
+    function () {
+      if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
+    },
+    [fetcher],
+  );
+
+  //  fetcher?.data?.find((menuItem) => item.pizzaId === menuItem.id)
+  //             ?.ingredients ?? []
+
+  fetcher?.data && console.log(fetcher?.data[0].ingredients);
+
   const order = useLoaderData();
   const {
     cart,
@@ -15,7 +29,7 @@ function OrderOverview() {
     priorityPrice,
   } = order;
 
-  console.log(order);
+  // console.log(order);
   return (
     <div className="mx-auto flex h-full max-w-4xl flex-col gap-8 px-8 pt-6">
       <div className="mt-4 flex flex-wrap justify-between gap-4">
@@ -38,7 +52,7 @@ function OrderOverview() {
       </div>
       <div className="d divide-y divide-stone-400 border-y border-stone-400">
         {cart.map((item) => {
-          const { name, quantity, totalPrice, pizzaId, ingredients } = item;
+          const { name, quantity, totalPrice, pizzaId } = item;
           return (
             <div
               key={pizzaId}
@@ -49,7 +63,9 @@ function OrderOverview() {
                   {quantity}&times; {name}
                 </span>
                 <span className="text-sm text-stone-500">
-                  {ingredients} Add Later
+                  {fetcher.data
+                    ?.find((menuItem) => pizzaId === menuItem.id)
+                    .ingredients.join(", ") ?? []}
                 </span>
               </p>
               <p className="font-bold">${totalPrice}</p>

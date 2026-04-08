@@ -6,25 +6,27 @@ import { createOrder } from "../../services/apiPizza";
 import { useSelector } from "react-redux";
 const orderID = "IIDSAT";
 
-const cart = [
-  {
-    pizzaId: 1,
-    name: "Margherita",
-    unitPrice: 12,
-    ingredients: ["tomato", "mozzarella", "basil"],
-    quantity: 2,
-  },
-  {
-    pizzaId: 2,
-    name: "Capricciosa",
-    unitPrice: 14,
-    ingredients: ["tomato", "mozzarella", "ham", "mushrooms", "artichoke"],
-    quantity: 4,
-  },
-];
+// const cart = [
+//   {
+//     pizzaId: 1,
+//     name: "Margherita",
+//     unitPrice: 12,
+//     ingredients: ["tomato", "mozzarella", "basil"],
+//     quantity: 2,
+//   },
+//   {
+//     pizzaId: 2,
+//     name: "Capricciosa",
+//     unitPrice: 14,
+//     ingredients: ["tomato", "mozzarella", "ham", "mushrooms", "artichoke"],
+//     quantity: 4,
+//   },
+// ];
 
 function Order() {
   const userName = useSelector((state) => state.user.name);
+  const cart = useSelector((state) => state.cart.cart);
+
   return (
     // <Form action={`/order/${orderID}`} method="post">
     <Form method="post" className="mx-4 mt-8 flex flex-col gap-4 sm:max-w-7/10">
