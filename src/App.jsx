@@ -3,9 +3,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 function App() {
   return (
-    <div className="flex h-dvh flex-col">
+    <div className="font-saira flex h-dvh flex-col">
       <Header />
-      <div className="flex flex-1 overflow-x-hidden overflow-y-auto bg-stone-200">
+      <div className="bg-slate-blue-100 flex flex-1 overflow-x-hidden overflow-y-auto">
         <main className="w-full flex-1 items-center justify-center">
           <Outlet />
         </main>

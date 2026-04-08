@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-saira: "Saira Stencil", sans-serif;
   --color-slate-blue-50: #f0f1f9;
   --color-slate-blue-100: #dfe1f2;
   --color-slate-blue-200: #bfc3e5;
@@ -13,3 +14,7 @@
   --color-slate-blue-900: #1d2033;
   --color-slate-blue-950: #10121e;
 }
+
+/* body {
+  font-family: var(--font-saira);
+} */

@@ -5,7 +5,6 @@ import { addToCart } from "../cart/cartSlice";
 function MenuItem({ pizza }) {
   const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
   const cart = useSelector((state) => state.cart.cart);
-  // console.log(cart);
   const dispatch = useDispatch();
 
   function handleAddToCart() {
@@ -20,18 +19,26 @@ function MenuItem({ pizza }) {
   }
 
   return (
-    <li className="mx-4 flex justify-between gap-10 border-b border-stone-500 py-2">
-      <img className="h-auto w-32 rounded-2xl" src={imageUrl} alt="" />
+    <li className="border-slate-blue-600 mx-4 flex justify-between gap-10 border-b py-2">
+      <img
+        className={`h-auto w-32 rounded-2xl ${soldOut ? "opacity-50 grayscale" : ""}`}
+        src={imageUrl}
+        alt=""
+      />
       <div className="relative flex w-full flex-col items-start justify-between gap-2">
-        <p className="font-semibold uppercase">{name}</p>
-        <p className="w-1/3 text-sm text-stone-700 capitalize">
+        <p className="text-slate-blue-50 font-semibold uppercase">{name}</p>
+        <p className="text-slate-blue-300 w-1/3 text-sm capitalize">
           {ingredients.map((ingredient) => (
             <span>{ingredient} </span>
           ))}
         </p>
         <div className="flex w-full items-center justify-between">
-          <span className="text-xs font-semibold">
-            {soldOut ? "SOLDOUT" : `Price: $${unitPrice.toFixed(2)}`}
+          <span className="text-slate-blue-400 text-xs font-semibold">
+            {soldOut ? (
+              <span className="text-slate-blue-600 uppercase">Sold Out</span>
+            ) : (
+              `Price: $${unitPrice.toFixed(2)}`
+            )}
           </span>
         </div>
 
@@ -42,5 +49,4 @@ function MenuItem({ pizza }) {
     </li>
   );
 }
-
 export default MenuItem;
