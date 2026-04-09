@@ -19,31 +19,34 @@ function MenuItem({ pizza }) {
   }
 
   return (
-    <li className="border-slate-blue-600 mx-4 flex justify-between gap-10 border-b py-2">
+    <li className="border-golden-sand-200 mx-4 flex justify-between gap-10 border-b py-4">
       <img
         className={`h-auto w-32 rounded-2xl ${soldOut ? "opacity-50 grayscale" : ""}`}
         src={imageUrl}
         alt=""
       />
       <div className="relative flex w-full flex-col items-start justify-between gap-2">
-        <p className="text-slate-blue-50 font-semibold uppercase">{name}</p>
-        <p className="text-slate-blue-300 w-1/3 text-sm capitalize">
+        <p className="text-mauve-bark-900 font-semibold uppercase">{name}</p>
+        <p className="text-mauve-bark-500 w-1/3 text-sm capitalize">
           {ingredients.map((ingredient) => (
-            <span>{ingredient} </span>
+            <span key={ingredient}>{ingredient} </span>
           ))}
         </p>
         <div className="flex w-full items-center justify-between">
-          <span className="text-slate-blue-400 text-xs font-semibold">
+          <span className="text-xs font-semibold">
             {soldOut ? (
-              <span className="text-slate-blue-600 uppercase">Sold Out</span>
+              <span className="bg-mauve-bark-200 text-mauve-bark-700 rounded-full px-3 py-1 text-xs uppercase">
+                Sold Out
+              </span>
             ) : (
-              `Price: $${unitPrice.toFixed(2)}`
+              <span className="bg-golden-sand-100 text-golden-sand-700 rounded-full px-3 py-1 text-xs">
+                ${unitPrice.toFixed(2)}
+              </span>
             )}
           </span>
         </div>
-
         <span className="absolute top-1/2 right-4 -translate-y-1/2">
-          <Button onClick={handleAddToCart}>Add to cart</Button>
+          {!soldOut && <Button onClick={handleAddToCart}>Add to cart</Button>}
         </span>
       </div>
     </li>

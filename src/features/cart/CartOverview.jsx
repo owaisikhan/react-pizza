@@ -2,7 +2,7 @@ import CartItem from "./CartItem";
 
 function CartOverview({ cart }) {
   return (
-    <ul className="flex flex-col gap-4 divide-y divide-stone-300 border-b border-stone-300">
+    <ul className="divide-golden-sand-200 border-golden-sand-300 flex flex-col gap-2 divide-y border-b">
       {cart.map((cart) => (
         <CartItem cart={cart} key={cart.id} />
       ))}
