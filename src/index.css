@@ -13,6 +13,66 @@
   --color-slate-blue-800: #2e3451;
   --color-slate-blue-900: #1d2033;
   --color-slate-blue-950: #10121e;
+
+  --color-golden-sand-50: #faf7ea;
+  --color-golden-sand-100: #f6f0d5;
+  --color-golden-sand-200: #ece0ac;
+  --color-golden-sand-300: #e3d182;
+  --color-golden-sand-400: #d9c259;
+  --color-golden-sand-500: #d0b22f;
+  --color-golden-sand-600: #a68f26;
+  --color-golden-sand-700: #7d6b1c;
+  --color-golden-sand-800: #534713;
+  --color-golden-sand-900: #2a2409;
+  --color-golden-sand-950: #1d1907;
+
+  --color-cream-50: #feffe5;
+  --color-cream-100: #fcffcc;
+  --color-cream-200: #faff99;
+  --color-cream-300: #f7ff66;
+  --color-cream-400: #f5ff33;
+  --color-cream-500: #f2ff00;
+  --color-cream-600: #c2cc00;
+  --color-cream-700: #919900;
+  --color-cream-800: #616600;
+  --color-cream-900: #303300;
+  --color-cream-950: #222400;
+
+  --color-apricot-cream-50: #fef6e6;
+  --color-apricot-cream-100: #feeccd;
+  --color-apricot-cream-200: #fdd99b;
+  --color-apricot-cream-300: #fcc669;
+  --color-apricot-cream-400: #fbb337;
+  --color-apricot-cream-500: #faa005;
+  --color-apricot-cream-600: #c88004;
+  --color-apricot-cream-700: #966003;
+  --color-apricot-cream-800: #644002;
+  --color-apricot-cream-900: #322001;
+  --color-apricot-cream-950: #231601;
+
+  --color-burnt-peach-50: #fcece8;
+  --color-burnt-peach-100: #fad9d1;
+  --color-burnt-peach-200: #f5b2a3;
+  --color-burnt-peach-300: #f08c75;
+  --color-burnt-peach-400: #eb6547;
+  --color-burnt-peach-500: #e63f19;
+  --color-burnt-peach-600: #b83214;
+  --color-burnt-peach-700: #8a260f;
+  --color-burnt-peach-800: #5c190a;
+  --color-burnt-peach-900: #2e0d05;
+  --color-burnt-peach-950: #200904;
+
+  --color-mauve-bark-50: #f6f0ef;
+  --color-mauve-bark-100: #ece2df;
+  --color-mauve-bark-200: #d9c4bf;
+  --color-mauve-bark-300: #c6a79f;
+  --color-mauve-bark-400: #b48a7e;
+  --color-mauve-bark-500: #a16d5e;
+  --color-mauve-bark-600: #81574b;
+  --color-mauve-bark-700: #604139;
+  --color-mauve-bark-800: #402b26;
+  --color-mauve-bark-900: #201613;
+  --color-mauve-bark-950: #160f0d;
 }
 
 /* body {
