@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
 import {
+  clearCart,
   decreaseQuantity,
+  deleteItem,
   getItemQuantity,
   increaseQuantity,
 } from "./cartSlice";
@@ -35,7 +37,7 @@ function CartItem({ cart }) {
         >
           -
         </Button>
-        <Button type="none">
+        <Button type="none" onClick={() => dispatch(deleteItem(pizzaId))}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
