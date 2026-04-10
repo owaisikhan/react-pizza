@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
 import {
-  clearCart,
   decreaseQuantity,
   deleteItem,
   getItemQuantity,
   increaseQuantity,
 } from "./cartSlice";
+import { convertToPKR } from "../../utilis/currencySlice";
 
 function CartItem({ cart }) {
   const { name, quantity, unitPrice, pizzaId } = cart;
@@ -14,13 +14,15 @@ function CartItem({ cart }) {
   const dispatch = useDispatch();
   const itemQuantity = useSelector(getItemQuantity(cart.pizzaId));
 
+  const amountInRs = useSelector(convertToPKR(unitPrice * quantity));
+
   return (
     <li className="flex items-center justify-between py-3">
       <p className="text-mauve-bark-900 font-medium">
         {quantity}&times; {name}
       </p>
       <span className="text-burnt-peach-600 text-sm font-semibold">
-        ${unitPrice * quantity}
+        Rs {amountInRs.toLocaleString("en-PK")}
       </span>
       <div className="flex items-center gap-2">
         <Button

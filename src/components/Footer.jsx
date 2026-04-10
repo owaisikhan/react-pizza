@@ -1,34 +1,45 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
+import { getCart } from "../features/cart/cartSlice";
+import currencyConversion from "../utilis/currencyConvert";
+import { useEffect, useState } from "react";
+import { convertToPKR } from "../utilis/currencySlice";
+
 function Footer() {
+  const cart = useSelector(getCart);
+  const cartTotalQuantity = cart.reduce(
+    (quantity, pizza) => quantity + pizza.quantity,
+    0,
+  );
+  const cartTotalPrice = cart.reduce(
+    (price, pizza) => price + pizza.totalPrice,
+    0,
+  );
+
+  // const ratePKR = useSelector(getRate);
+  // const amountInRs = Math.floor(cartTotalPrice * ratePKR);
+  const amountInRs = useSelector(convertToPKR(cartTotalPrice));
+
   return (
     <div className="border-burnt-peach-700 bg-burnt-peach-800 text-md text-golden-sand-100 flex items-center justify-between border-t-2 px-4 py-4 font-semibold tracking-wider">
-      <span>Total: 13$</span>
+      <div>
+        <span> {cartTotalQuantity} items | </span>
+        <span>Rs {amountInRs.toLocaleString("en-PK")}</span>
+      </div>
       <Link to="/cart">
         <div className="text-golden-sand-200 hover:text-golden-sand-400 flex items-center gap-2 transition-colors duration-200">
-          <div className="border-golden-sand-400 bg-burnt-peach-700 size-[28px] rounded-full border">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"
-                stroke="#e3d182"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-                fill="#5c190a"
-              />
-              <path
-                d="M3 6h18"
-                stroke="#e3d182"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-              <path
-                d="M16 10a4 4 0 01-8 0"
-                stroke="#e3d182"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
+          <div className="flex items-center justify-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
             </svg>
+            <span>View Cart</span>
           </div>
-          <span>View Cart</span>
         </div>
       </Link>
     </div>
