@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button";
 import { useNavigate } from "react-router";
-import { addUser } from "../features/user/userSlice";
+import { addUser, getUsername } from "../features/user/userSlice";
 import { useState } from "react";
 
 function Home() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
-  const userName = useSelector((state) => state.user.name);
+  const userName = useSelector(getUsername);
   const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!name) return;
     dispatch(addUser(name));
     setName("");
     navigate("/menu");
@@ -57,7 +58,7 @@ function Home() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <Button type="login">Login</Button>
+          {name && <Button type="login">Login</Button>}
         </div>
       </div>
     </form>

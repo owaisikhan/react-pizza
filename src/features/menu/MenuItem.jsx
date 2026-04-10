@@ -1,13 +1,24 @@
 import { useSelector, useDispatch } from "react-redux";
 import Button from "../../components/Button";
-import { addToCart } from "../cart/cartSlice";
+import {
+  addToCart,
+  decreaseQuantity,
+  getItemQuantity,
+  increaseQuantity,
+} from "../cart/cartSlice";
 
 function MenuItem({ pizza }) {
   const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
   const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
+  const ItemQuantity = useSelector(getItemQuantity(id));
 
   function handleAddToCart() {
+    //  "pizzaId": 1,
+    //   "name": "Margherita",
+    //   "quantity": 2,
+    //   "unitPrice": 12,
+    //   "totalPrice": 24
     const newItem = {
       pizzaId: id,
       name,
@@ -17,6 +28,8 @@ function MenuItem({ pizza }) {
     };
     dispatch(addToCart(newItem));
   }
+
+  const isAlreadyInCart = cart.filter((item) => item.pizzaId === id).length > 0;
 
   return (
     <li className="border-golden-sand-200 mx-4 flex justify-between gap-10 border-b py-4">
@@ -46,7 +59,27 @@ function MenuItem({ pizza }) {
           </span>
         </div>
         <span className="absolute top-1/2 right-4 -translate-y-1/2">
-          {!soldOut && <Button onClick={handleAddToCart}>Add to cart</Button>}
+          {!soldOut && !isAlreadyInCart && ItemQuantity === 0 && (
+            <Button onClick={handleAddToCart}>Add to cart</Button>
+          )}
+          {isAlreadyInCart && ItemQuantity > 0 && (
+            <div className="flex items-center gap-2 p-3.5 font-bold">
+              <Button
+                type="small"
+                onClick={() => dispatch(increaseQuantity(id))}
+              >
+                +
+              </Button>
+
+              {ItemQuantity}
+              <Button
+                type="small"
+                onClick={() => dispatch(decreaseQuantity(id))}
+              >
+                -
+              </Button>
+            </div>
+          )}
         </span>
       </div>
     </li>
