@@ -9,7 +9,7 @@ function CartOverview() {
   return (
     <ul className="divide-golden-sand-200 border-golden-sand-300 flex flex-col gap-2 divide-y border-b">
       {cart.map((item) => (
-        <CartItem cart={item} key={item.id} />
+        <CartItem cart={item} key={item.pizzaId} />
       ))}
     </ul>
   );

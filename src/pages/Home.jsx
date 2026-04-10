@@ -18,6 +18,10 @@ function Home() {
     navigate("/menu");
   }
 
+  function handleContinue() {
+    navigate("/menu");
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -46,19 +50,29 @@ function Home() {
             Welcome to react pizza {userName}
           </p>
           <p className="text-mauve-bark-300 text-sm sm:text-[18px]">
-            Enter your name to start ordering
+            {userName
+              ? "Ready to order? Let's go!"
+              : "Enter your name to start ordering"}
           </p>
         </div>
 
         <div className="flex w-7/10 flex-col items-center gap-2">
-          <input
-            className="border-mauve-bark-600 bg-mauve-bark-700 text-golden-sand-100 placeholder:text-mauve-bark-400 focus:border-golden-sand-400 mt-2 mb-4 w-full rounded-xl border-[1.5px] px-4 py-3 text-sm transition-colors focus:outline-none"
-            type="text"
-            placeholder="Enter Name...."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          {name && <Button type="login">Login</Button>}
+          {userName ? (
+            <Button type="login" onClick={handleContinue}>
+              Continue to Menu, {userName}
+            </Button>
+          ) : (
+            <>
+              <input
+                className="border-mauve-bark-600 bg-mauve-bark-700 text-golden-sand-100 placeholder:text-mauve-bark-400 focus:border-golden-sand-400 mt-2 mb-4 w-full rounded-xl border-[1.5px] px-4 py-3 text-sm transition-colors focus:outline-none"
+                type="text"
+                placeholder="Enter Name...."
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              {name && <Button type="login">Login</Button>}
+            </>
+          )}
         </div>
       </div>
     </form>

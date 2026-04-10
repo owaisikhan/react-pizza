@@ -92,7 +92,7 @@ function Order() {
       <input type="hidden" name="cart" value={JSON.stringify(cart)} />
 
       <span className="self-center">
-        <Button type="submit">Order Now</Button>
+        <Button type="base">Order Now</Button>
       </span>
     </Form>
   );
