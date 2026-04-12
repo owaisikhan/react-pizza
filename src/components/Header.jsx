@@ -25,7 +25,7 @@ function Header() {
           placeholder="Search..."
           value={idEntered}
           onChange={(e) => setIdEntered(e.target.value)}
-          className="outline-none"
+          className="transition-all duration-300 outline-none focus:w-1/2 focus:outline-none md:w-3/10 md:focus:w-1/2"
         />
       </form>
       <span className="text-golden-sand-200 hidden text-2xl tracking-wider uppercase sm:block">
