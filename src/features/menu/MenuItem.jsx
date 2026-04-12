@@ -6,6 +6,7 @@ import {
   getItemQuantity,
   increaseQuantity,
 } from "../cart/cartSlice";
+import { convertToPKR } from "../../utilis/currencySlice";
 
 function MenuItem({ pizza }) {
   const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
@@ -31,6 +32,8 @@ function MenuItem({ pizza }) {
 
   const isAlreadyInCart = cart.filter((item) => item.pizzaId === id).length > 0;
 
+  const amountInRs = useSelector(convertToPKR(unitPrice));
+
   return (
     <li className="border-golden-sand-200 mx-4 flex justify-between gap-10 border-b py-4">
       <img
@@ -53,7 +56,7 @@ function MenuItem({ pizza }) {
               </span>
             ) : (
               <span className="bg-golden-sand-100 text-golden-sand-700 rounded-full px-3 py-1 text-xs">
-                ${unitPrice.toFixed(2)}
+                Rs. {amountInRs.toLocaleString("en-PK")}
               </span>
             )}
           </span>
