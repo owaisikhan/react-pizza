@@ -17,7 +17,7 @@ function Cart() {
   }
 
   return (
-    <div className="bg-golden-sand-50 mx-auto mt-8 min-h-full max-w-6/10 pb-10 md:max-w-6/10">
+    <div className="mx-auto mt-8 max-w-6/10 pb-10 md:max-w-6/10">
       <p className="text-mauve-bark-900 mb-6 text-2xl font-bold">
         Your Cart, {userName}
       </p>

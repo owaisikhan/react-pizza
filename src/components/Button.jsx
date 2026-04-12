@@ -7,7 +7,7 @@ function Button({ children, onClick, to, type }) {
   const base =
     "text-md rounded-3xl border-2 cursor-pointer border-burnt-peach-600 bg-burnt-peach-500 px-4 py-2 font-bold text-golden-sand-50 hover:bg-burnt-peach-400 transition-all duration-200 md:rounded-3xl md:p-3 md:text-sm";
   const small =
-    "text-2xl rounded-md cursor-pointer border-1 border-burnt-peach-600 bg-burnt-peach-500 py-1 px-3.5 font-bold text-golden-sand-50 hover:bg-burnt-peach-400 transition-all duration-200 ";
+    "w-8 h-8 flex items-center justify-center text-3xl rounded-full cursor-pointer border-1 border-burnt-peach-600 bg-burnt-peach-500  font-bold text-golden-sand-50 hover:bg-burnt-peach-400 transition-all duration-200 ";
   const className = {
     login,
     base,
