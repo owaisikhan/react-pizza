@@ -27,12 +27,18 @@ const cartSlice = createSlice({
     decreaseQuantity(state, action) {
       const item = state.cart.find((item) => item.pizzaId === action.payload);
       item.quantity--;
-      if (item.quantity === 0) {
-        state.cart = state.cart.filter(
-          (item) => item.pizzaId !== action.payload,
-        );
-      }
+
       item.totalPrice = item.quantity * item.unitPrice;
+      // if (item.quantity === 0) {
+      //   state.cart = state.cart.filter(
+      //     (item) => item.pizzaId !== action.payload,
+      //   );
+      // }
+
+      //See here owais, we are using the deleteItem reducer to remove the item from the cart if the quantity is 0, instead of directly filtering it here. This way we can keep our reducers more organized and reusable.
+      if (item.quantity === 0) {
+        cartSlice.caseReducers.deleteItem(state, action);
+      }
     },
     deleteItem(state, action) {
       state.cart = state.cart.filter((item) => item.pizzaId !== action.payload);
