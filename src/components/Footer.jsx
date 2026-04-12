@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 import { getCart } from "../features/cart/cartSlice";
-import currencyConversion from "../utilis/currencyConvert";
-import { useEffect, useState } from "react";
 import { convertToPKR } from "../utilis/currencySlice";
 
 function Footer() {
@@ -19,6 +17,10 @@ function Footer() {
   // const ratePKR = useSelector(getRate);
   // const amountInRs = Math.floor(cartTotalPrice * ratePKR);
   const amountInRs = useSelector(convertToPKR(cartTotalPrice));
+
+  if (!cart.length) {
+    return null;
+  }
 
   return (
     <div className="border-burnt-peach-700 bg-burnt-peach-800 text-md text-golden-sand-100 flex items-center justify-between border-t-2 px-4 py-4 font-semibold tracking-wider">
