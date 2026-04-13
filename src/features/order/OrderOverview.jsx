@@ -1,9 +1,12 @@
 import { useFetcher, useLoaderData } from "react-router";
 import { getOrder } from "../../services/apiPizza";
 import { useEffect } from "react";
+import { convertToPKR } from "../../utilis/currencySlice";
+import { useSelector } from "react-redux";
 
 function OrderOverview() {
   const fetcher = useFetcher();
+
   useEffect(
     function () {
       if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
@@ -21,6 +24,7 @@ function OrderOverview() {
     orderPrice,
     priorityPrice,
   } = order;
+  // const amountInPKR = convertToPKR();
 
   return (
     <div className="bg-golden-sand-50 mx-auto flex min-h-full max-w-4xl flex-col gap-8 px-8 py-8">
@@ -65,7 +69,10 @@ function OrderOverview() {
                     .ingredients.join(", ") ?? []}
                 </span>
               </p>
-              <p className="text-burnt-peach-600 font-bold">${totalPrice}</p>
+              <p className="text-burnt-peach-600 font-bold">
+                Rs.{" "}
+                {useSelector(convertToPKR(totalPrice)).toLocaleString("en-PK")}
+              </p>
             </div>
           );
         })}
@@ -74,18 +81,29 @@ function OrderOverview() {
       <div className="bg-mauve-bark-800 mt-4 flex flex-col justify-around gap-4 rounded-xl px-4 py-6">
         <div className="text-golden-sand-200 flex justify-between">
           <p>Price pizza:</p>
-          <span>${orderPrice}</span>
+          {/* price */}
+          <span>
+            Rs. {useSelector(convertToPKR(orderPrice)).toLocaleString("en-PK")}
+          </span>
         </div>
         <div className="text-golden-sand-200 flex justify-between">
           <p>Price priority:</p>
-          <span>${priorityPrice}</span>
+          {/* price */}
+          <span>
+            Rs.{" "}
+            {useSelector(convertToPKR(priorityPrice)).toLocaleString("en-PK")}
+          </span>
         </div>
         <div className="border-mauve-bark-600 flex justify-between border-t pt-3">
           <p className="text-golden-sand-100 font-semibold">
             To pay on delivery:
           </p>
+          {/* price */}
           <span className="text-golden-sand-100 font-bold">
-            ${orderPrice + priorityPrice}
+            Rs.{" "}
+            {useSelector(
+              convertToPKR(orderPrice + priorityPrice),
+            ).toLocaleString("en-PK")}
           </span>
         </div>
       </div>

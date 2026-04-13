@@ -2,6 +2,8 @@ import { Form, redirect } from "react-router";
 import Button from "../../components/Button";
 import { createOrder } from "../../services/apiPizza";
 import { useSelector } from "react-redux";
+import { store } from "../../store";
+import { clearCart } from "../cart/cartSlice";
 
 function Order() {
   const userName = useSelector((state) => state.user.name);
@@ -107,6 +109,9 @@ export async function action({ request }) {
     cart: JSON.parse(parsedData.cart),
   };
   const data = await createOrder(newOrder);
+
+  store.dispatch(clearCart());
+
   return redirect(`/order/${data.id}`);
 }
 
