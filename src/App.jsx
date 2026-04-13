@@ -1,12 +1,17 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchRate } from "./utilis/currencySlice";
 import Button from "./components/Button";
+import { getCart } from "./features/cart/cartSlice";
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const hideFooterRoutes = ["/", "/home"];
+  const showFooter = !hideFooterRoutes.includes(location.pathname);
 
   useEffect(() => {
     dispatch(fetchRate()); // ✅ fetch once, available everywhere
@@ -21,7 +26,7 @@ function App() {
           <Outlet />
         </main>
       </div>
-      <Footer />
+      {showFooter && <Footer />}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { addUser, getUsername } from "../features/user/userSlice";
 import { useState } from "react";
 
