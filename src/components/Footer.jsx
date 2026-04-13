@@ -1,11 +1,15 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { getCart } from "../features/cart/cartSlice";
 import { convertToPKR } from "../utilis/currencySlice";
 
 function Footer() {
   const cart = useSelector(getCart);
+  const location = useLocation();
 
+  const menuFooter = ["/menu"];
+  const shoViewCart = menuFooter.includes(location.pathname);
+  // console.log(shoViewCart);
   const cartTotalQuantity = cart.reduce(
     (quantity, pizza) => quantity + pizza.quantity,
     0,
@@ -29,7 +33,7 @@ function Footer() {
         <span> {cartTotalQuantity} items | </span>
         <span>Rs {amountInRs.toLocaleString("en-PK")}</span>
       </div>
-      {!cart.length ? (
+      {shoViewCart ? (
         <Link to="/cart">
           <div className="text-golden-sand-200 hover:text-golden-sand-400 flex items-center gap-2 transition-colors duration-200">
             <div className="flex items-center justify-center gap-2">
