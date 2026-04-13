@@ -9,10 +9,9 @@ import { getCart } from "./features/cart/cartSlice";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+
   const hideFooterRoutes = ["/", "/home"];
   const showFooter = !hideFooterRoutes.includes(location.pathname);
-
-  const cart = useSelector(getCart);
 
   useEffect(() => {
     dispatch(fetchRate()); // ✅ fetch once, available everywhere

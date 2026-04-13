@@ -6,7 +6,7 @@ export const fetchRate = createAsyncThunk("currency/fetchRate", async () => {
   const res = await fetch(API);
   if (!res.ok) throw new Error("Failed to convert currency");
   const data = await res.json();
-  console.log("from APIIIIIIIIIIIIII");
+  // console.log("from APIIIIIIIIIIIIII");
   //fulfilled payload
   return data.rate;
 });
