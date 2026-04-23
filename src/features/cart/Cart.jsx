@@ -4,14 +4,15 @@ import CartItem from "./CartItem";
 import CartOverview from "./CartOverview";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsername } from "../user/userSlice";
-import { clearCart, getCart } from "./cartSlice";
+// import { clearCart, getCart } from "./cartSlice";
 
 function Cart() {
   const navigate = useNavigate();
-  const cart = useSelector(getCart);
+
   const dispatch = useDispatch();
 
   const userName = useSelector(getUsername);
+
   function handleOrder() {
     navigate("/order");
   }
@@ -22,7 +23,7 @@ function Cart() {
         Your Cart, {userName}
       </p>
 
-      {!cart.length ? (
+      {2 > 1 ? (
         <>
           <p>Please add pizza to your cart before ordering!</p>
           <Button to="/menu" type="back">
@@ -47,7 +48,7 @@ function Cart() {
           <CartOverview />
           <div className="mt-8 flex justify-between">
             <Button onClick={handleOrder}>Order Now</Button>
-            <Button onClick={() => dispatch(clearCart())}>Clear Cart</Button>
+            <Button>Clear Cart</Button>
           </div>
         </>
       )}

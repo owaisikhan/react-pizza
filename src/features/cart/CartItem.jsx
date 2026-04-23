@@ -1,18 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Button from "../../components/Button";
-import {
-  decreaseQuantity,
-  deleteItem,
-  getItemQuantity,
-  increaseQuantity,
-} from "./cartSlice";
+
 import { convertToPKR } from "../../utilis/currencySlice";
 
 function CartItem({ cart }) {
-  const { name, quantity, unitPrice, pizzaId } = cart;
+  const name = "ammar";
+  const quantity = 2;
+  const unitPrice = 11;
+  const pizzaId = 1;
 
-  const dispatch = useDispatch();
-  const itemQuantity = useSelector(getItemQuantity(cart.pizzaId));
+  const itemQuantity = 2;
 
   const amountInRs = useSelector(convertToPKR(unitPrice * quantity));
 
@@ -25,10 +22,7 @@ function CartItem({ cart }) {
         Rs {amountInRs.toLocaleString("en-PK")}
       </span>
       <div className="flex items-center justify-center gap-2">
-        <Button
-          type="small"
-          onClick={() => dispatch(increaseQuantity(pizzaId))}
-        >
+        <Button type="small">
           {/* + Button */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -47,10 +41,7 @@ function CartItem({ cart }) {
         </Button>
 
         {itemQuantity}
-        <Button
-          type="small"
-          onClick={() => dispatch(decreaseQuantity(pizzaId))}
-        >
+        <Button type="small">
           {/* - Button */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +57,7 @@ function CartItem({ cart }) {
             <path d="M5 12h14" />
           </svg>
         </Button>
-        <Button type="none" onClick={() => dispatch(deleteItem(pizzaId))}>
+        <Button type="none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"

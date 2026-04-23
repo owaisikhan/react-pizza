@@ -1,31 +1,19 @@
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router";
-import { getCart } from "../features/cart/cartSlice";
 import { convertToPKR } from "../utilis/currencySlice";
 
 function Footer() {
-  const cart = useSelector(getCart);
   const location = useLocation();
 
   const menuFooter = ["/menu"];
   const shoViewCart = menuFooter.includes(location.pathname);
   // console.log(shoViewCart);
-  const cartTotalQuantity = cart.reduce(
-    (quantity, pizza) => quantity + pizza.quantity,
-    0,
-  );
-  const cartTotalPrice = cart.reduce(
-    (price, pizza) => price + pizza.totalPrice,
-    0,
-  );
+  const cartTotalQuantity = 2;
+  const cartTotalPrice = 43;
 
   // const ratePKR = useSelector(getRate);
   // const amountInRs = Math.floor(cartTotalPrice * ratePKR);
   const amountInRs = useSelector(convertToPKR(cartTotalPrice));
-
-  if (!cart.length) {
-    return null;
-  }
 
   return (
     <div className="border-burnt-peach-700 bg-burnt-peach-800 text-md text-golden-sand-100 flex items-center justify-between border-t-2 px-4 py-4 font-semibold tracking-wider">

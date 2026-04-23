@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchRate } from "./utilis/currencySlice";
 import Button from "./components/Button";
-import { getCart } from "./features/cart/cartSlice";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();

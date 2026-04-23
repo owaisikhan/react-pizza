@@ -2,12 +2,10 @@ import { Form, redirect } from "react-router";
 import Button from "../../components/Button";
 import { createOrder } from "../../services/apiPizza";
 import { useSelector } from "react-redux";
-import { store } from "../../store";
-import { clearCart } from "../cart/cartSlice";
 
 function Order() {
   const userName = useSelector((state) => state.user.name);
-  const cart = useSelector((state) => state.cart.cart);
+  // const cart = useSelector((state) => state.cart.cart);
 
   const inputClass =
     "mx-2 flex-1 rounded-2xl border-2 border-golden-sand-300 bg-golden-sand-50 px-4 py-2 text-mauve-bark-900 placeholder:text-mauve-bark-400 transition-all duration-300 focus:border-burnt-peach-400 focus:outline-none";
@@ -91,7 +89,7 @@ function Order() {
         </label>
       </div>
 
-      <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+      {/* <input type="hidden" name="cart" value={JSON.stringify(cart)} /> */}
 
       <span className="self-center">
         <Button type="base">Order Now</Button>
@@ -106,13 +104,14 @@ export async function action({ request }) {
   const newOrder = {
     ...parsedData,
     priority: parsedData.priority === "on",
-    cart: JSON.parse(parsedData.cart),
+    // cart: JSON.parse(parsedData.cart),
   };
   const data = await createOrder(newOrder);
 
-  store.dispatch(clearCart());
+  // store.dispatch(clearCart());
 
-  return redirect(`/order/${data.id}`);
+  return null;
+  // return redirect(`/order/${data.id}`);
 }
 
 export default Order;

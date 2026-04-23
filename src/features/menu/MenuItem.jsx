@@ -1,18 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import Button from "../../components/Button";
-import {
-  addToCart,
-  decreaseQuantity,
-  getItemQuantity,
-  increaseQuantity,
-} from "../cart/cartSlice";
+
 import { convertToPKR } from "../../utilis/currencySlice";
 
 function MenuItem({ pizza }) {
   const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
-  const cart = useSelector((state) => state.cart.cart);
+  // const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
-  const ItemQuantity = useSelector(getItemQuantity(id));
+  const ItemQuantity = 11;
 
   function handleAddToCart() {
     //  "pizzaId": 1,
@@ -27,10 +22,9 @@ function MenuItem({ pizza }) {
       unitPrice,
       totalPrice: unitPrice * 1,
     };
-    dispatch(addToCart(newItem));
   }
 
-  const isAlreadyInCart = cart.filter((item) => item.pizzaId === id).length > 0;
+  // const isAlreadyInCart = cart.filter((item) => item.pizzaId === id).length > 0;
 
   const amountInRs = useSelector(convertToPKR(unitPrice));
 
@@ -62,25 +56,15 @@ function MenuItem({ pizza }) {
           </span>
         </div>
         <span className="absolute top-1/2 right-4 -translate-y-1/2">
-          {!soldOut && !isAlreadyInCart && ItemQuantity === 0 && (
+          {!soldOut && true && ItemQuantity === 0 && (
             <Button onClick={handleAddToCart}>Add to cart</Button>
           )}
-          {isAlreadyInCart && ItemQuantity > 0 && (
+          {2 && ItemQuantity > 0 && (
             <div className="flex items-center gap-2 p-3.5 font-bold">
-              <Button
-                type="small"
-                onClick={() => dispatch(increaseQuantity(id))}
-              >
-                +
-              </Button>
+              <Button type="small">+</Button>
 
               {ItemQuantity}
-              <Button
-                type="small"
-                onClick={() => dispatch(decreaseQuantity(id))}
-              >
-                -
-              </Button>
+              <Button type="small">-</Button>
             </div>
           )}
         </span>
