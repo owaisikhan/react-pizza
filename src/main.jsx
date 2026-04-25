@@ -16,6 +16,16 @@ import { loader as orderLoader } from "./features/order/OrderOverview.jsx";
 import { action as orderAction } from "./features/order/Order.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store.js";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 1000 * 60 * 1, // 5 minutes (default)
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -42,9 +52,14 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
 const root = document.getElementById("root");
+
 ReactDOM.createRoot(root).render(
-  <Provider store={store}>
-    <RouterProvider router={router} />
-  </Provider>,
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </QueryClientProvider>,
 );

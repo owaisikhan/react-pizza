@@ -4,10 +4,12 @@ import Button from "../../components/Button";
 import { convertToPKR } from "../../utilis/currencySlice";
 
 function CartItem({ cart }) {
-  const name = "ammar";
-  const quantity = 2;
-  const unitPrice = 11;
-  const pizzaId = 1;
+  // const name = "ammar";
+  // const quantity = 2;
+  // const unitPrice = 11;
+  // const pizzaId = 1;
+
+  const { name, quantity, unitPrice } = cart;
 
   const itemQuantity = 2;
 
