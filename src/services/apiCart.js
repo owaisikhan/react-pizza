@@ -32,6 +32,17 @@ export async function incrementQuantity(pizzaName, pizzaQuantity) {
   return data;
 }
 
+export async function insertIntoCart(newCartItem) {
+  const { data, error } = await supabase
+    .from("cart")
+    .insert([newCartItem])
+    .select()
+    .single();
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 // create a function to delete a row from cart table
 export async function deleteCartRow(pizzaName) {
   const { data, error } = await supabase

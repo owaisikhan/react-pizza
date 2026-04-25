@@ -1,16 +1,20 @@
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router";
 import { convertToPKR } from "../utilis/currencySlice";
+import useGetCart from "../features/cart/useGetCart";
 
 function Footer() {
   const location = useLocation();
+  const { cart } = useGetCart();
+
+  const cartTotalQuantity =
+    cart?.reduce((total, item) => total + item.quantity, 0) || 0;
+  const cartTotalPrice =
+    cart?.reduce((total, item) => total + item.totalPrice, 0) || 0;
 
   const menuFooter = ["/menu"];
   const shoViewCart = menuFooter.includes(location.pathname);
-  // console.log(shoViewCart);
-  const cartTotalQuantity = 2;
-  const cartTotalPrice = 43;
-
+  console.log(cartTotalQuantity);
   // const ratePKR = useSelector(getRate);
   // const amountInRs = Math.floor(cartTotalPrice * ratePKR);
   const amountInRs = useSelector(convertToPKR(cartTotalPrice));

@@ -8,10 +8,9 @@ import { convertToPKR } from "../../utilis/currencySlice";
 import { useUpdateQuantity } from "./useUpdateQuantity";
 import { getCartRow } from "../../services/apiCart";
 import { useDeleteRow } from "./useDeleteRow";
+import { useAddToCart } from "./useAddToCart";
 
 function MenuItem({ pizza }) {
-  const { cart } = useGetCart();
-
   const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
   // const cart = useSelector((state) => state.cart.cart);
   // const dispatch = useDispatch();
@@ -25,8 +24,9 @@ function MenuItem({ pizza }) {
   const ItemQuantity = data?.quantity ?? 0;
 
   // not useful
-  const isAlreadyInCart =
-    cart?.filter((item) => item.name === name)[0]?.quantity > 0;
+  // const isAlreadyInCart =
+  //   cart?.filter((item) => item.name === name)[0]?.quantity > 0;
+  const { addToCart, isPending: isAddingToCart } = useAddToCart();
 
   function handleAddToCart() {
     //  "pizzaId": 1,
@@ -41,6 +41,8 @@ function MenuItem({ pizza }) {
     //   unitPrice,
     //   totalPrice: unitPrice * 1,
     // };
+
+    addToCart({ name, quantity: 1, unitPrice });
   }
 
   const amountInRs = useSelector(convertToPKR(unitPrice));
