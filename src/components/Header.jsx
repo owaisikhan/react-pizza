@@ -9,6 +9,10 @@ function Header() {
   function handleSubmit(e) {
     e.preventDefault();
     navigate(`/order/${idEntered}`);
+    // Clear the input field after navigation and alos unfoccus the input field after submiting the form
+
+    setIdEntered("");
+    e.target.querySelector("input").blur(); //this will unfocus the input field after submiting the form
   }
   return (
     <div className="border-burnt-peach-700 bg-burnt-peach-800 text-golden-sand-100 flex items-center justify-between border-b px-6 py-4 text-nowrap">

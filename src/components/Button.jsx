@@ -3,7 +3,7 @@ import { Link } from "react-router";
 function Button({ children, onClick, to, type, disabled = false }) {
   const login =
     "w-7/10 bg-burnt-peach-500  rounded-xl py-3 text-sm font-medium text-golden-sand-50 transition-all duration-300 ease-in-out hover:bg-burnt-peach-400 cursor-pointer hover:-translate-y-1 hover:scale-105 active:scale-95 active:bg-burnt-peach-600 sm:text-xl";
-  const none = "cursor-pointer";
+  const none = disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer";
 
   const base =
     "text-md rounded-3xl border-2 cursor-pointer border-burnt-peach-600 bg-burnt-peach-500 px-4 py-2 font-bold text-golden-sand-50 hover:bg-burnt-peach-400 cursor-pointer transition-all duration-200 md:rounded-3xl md:p-3 md:text-sm";

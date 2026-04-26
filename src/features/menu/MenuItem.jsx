@@ -1,21 +1,16 @@
 import { useSelector } from "react-redux";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import Button from "../../components/Button";
-import useGetCart from "../cart/useGetCart";
-
-import { convertToPKR } from "../../utilis/currencySlice";
-import { useUpdateQuantity } from "./useUpdateQuantity";
-import { getCartRow } from "../../services/apiCart";
-import { useDeleteRow } from "./useDeleteRow";
-import { useAddToCart } from "./useAddToCart";
 import UpdateQuantity from "../../components/UpdateQuantity";
+
+import { getCartRow } from "../../services/apiCart";
+import { useAddToCart } from "./useAddToCart";
+import { DotLoader } from "react-spinners";
+import { convertToPKR } from "../../utilis/currencySlice";
 
 function MenuItem({ pizza }) {
   const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
-  // const cart = useSelector((state) => state.cart.cart);
-  // const dispatch = useDispatch();
-  //  const ItemQuantity = useSelector(getItemQuantity(id));
 
   const { data, isPending } = useQuery({
     queryKey: [`pizza: ${name}`],
@@ -24,49 +19,23 @@ function MenuItem({ pizza }) {
 
   const ItemQuantity = data?.quantity ?? 0;
 
-  // not useful
-  // const isAlreadyInCart =
-  //   cart?.filter((item) => item.name === name)[0]?.quantity > 0;
-  const { addToCart, isPending: isAddingToCart } = useAddToCart();
+  const { addToCart, isPending: isAddingToCart, error } = useAddToCart();
 
   const amountInRs = useSelector(convertToPKR(unitPrice));
   function handleAddToCart() {
-    //  "pizzaId": 1,
-    //   "name": "Margherita",
-    //   "quantity": 2,
-    //   "unitPrice": 12,
-    //   "totalPrice": 24
-    // const newItem = {
-    //   pizzaId: id,
-    //   name,
-    //   quantity: 1,
-    //   unitPrice,
-    //   totalPrice: unitPrice * 1,
-    // };
-
     addToCart({ name, quantity: 1, unitPrice: amountInRs, id });
   }
 
-  //add custom Hook
-  // const { updatePizzaQuantity, isUpdating } = useUpdateQuantity(name);
-  // const { deletePizzaRow } = useDeleteRow(name);
-
-  // create a mutation for deleteing a row from cart table and then call it in the handle decrement function when quantity is 0 and also invalidate the query for that pizza in the on success of the mutat
-
-  // function handleIncrement() {
-  //   updatePizzaQuantity({ name, quantity: ItemQuantity + 1 });
-  // }
-  // function handleDecrement() {
-  //   if (ItemQuantity === 1) {
-  //     // call the delete function in api cart when quantity is 0
-  //     deletePizzaRow(name);
-  //   } else {
-  //     updatePizzaQuantity({ name, quantity: ItemQuantity - 1 });
-  //   }
+  // if (isPending) {
+  //   return (
+  //     <div className="flex h-full items-center justify-center">
+  //       <DotLoader />
+  //     </div>
+  //   );
   // }
 
-  if (isPending) {
-    return <div>Loading...</div>;
+  if (error) {
+    return <Error />;
   }
 
   return (
@@ -105,22 +74,6 @@ function MenuItem({ pizza }) {
           {ItemQuantity > 0 && (
             <div className="flex items-center gap-2 p-3.5 font-bold">
               <UpdateQuantity name={name} ItemQuantity={ItemQuantity} />
-              {/* <Button
-                disabled={isUpdating}
-                type="small"
-                onClick={handleIncrement}
-              >
-                +
-              </Button>
-
-              {ItemQuantity}
-              <Button
-                disabled={isUpdating}
-                onClick={handleDecrement}
-                type="small"
-              >
-                -
-              </Button> */}
             </div>
           )}
         </span>
