@@ -14,16 +14,18 @@ function Footer() {
 
   const menuFooter = ["/menu"];
   const shoViewCart = menuFooter.includes(location.pathname);
-  console.log(cartTotalQuantity);
+
   // const ratePKR = useSelector(getRate);
   // const amountInRs = Math.floor(cartTotalPrice * ratePKR);
-  const amountInRs = useSelector(convertToPKR(cartTotalPrice));
+  // const amountInRs = useSelector(convertToPKR(cartTotalPrice));
+
+  if (cartTotalQuantity === 0) return null;
 
   return (
     <div className="border-burnt-peach-700 bg-burnt-peach-800 text-md text-golden-sand-100 flex items-center justify-between border-t-2 px-4 py-4 font-semibold tracking-wider">
       <div>
         <span> {cartTotalQuantity} items | </span>
-        <span>Rs {amountInRs.toLocaleString("en-PK")}</span>
+        <span>Rs {cartTotalPrice.toLocaleString("en-PK")}</span>
       </div>
       {shoViewCart ? (
         <Link to="/cart">

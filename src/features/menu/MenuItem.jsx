@@ -9,6 +9,7 @@ import { useUpdateQuantity } from "./useUpdateQuantity";
 import { getCartRow } from "../../services/apiCart";
 import { useDeleteRow } from "./useDeleteRow";
 import { useAddToCart } from "./useAddToCart";
+import UpdateQuantity from "../../components/UpdateQuantity";
 
 function MenuItem({ pizza }) {
   const { name, unitPrice, soldOut, ingredients, imageUrl, id } = pizza;
@@ -28,6 +29,7 @@ function MenuItem({ pizza }) {
   //   cart?.filter((item) => item.name === name)[0]?.quantity > 0;
   const { addToCart, isPending: isAddingToCart } = useAddToCart();
 
+  const amountInRs = useSelector(convertToPKR(unitPrice));
   function handleAddToCart() {
     //  "pizzaId": 1,
     //   "name": "Margherita",
@@ -42,27 +44,29 @@ function MenuItem({ pizza }) {
     //   totalPrice: unitPrice * 1,
     // };
 
-    addToCart({ name, quantity: 1, unitPrice });
+    addToCart({ name, quantity: 1, unitPrice: amountInRs, id });
   }
-
-  const amountInRs = useSelector(convertToPKR(unitPrice));
 
   //add custom Hook
-  const { updatePizzaQuantity, isUpdating } = useUpdateQuantity(name);
+  // const { updatePizzaQuantity, isUpdating } = useUpdateQuantity(name);
+  // const { deletePizzaRow } = useDeleteRow(name);
 
   // create a mutation for deleteing a row from cart table and then call it in the handle decrement function when quantity is 0 and also invalidate the query for that pizza in the on success of the mutat
-  const { deletePizzaRow } = useDeleteRow(name);
 
-  function handleIncrement() {
-    updatePizzaQuantity({ name, quantity: ItemQuantity + 1 });
-  }
-  function handleDecrement() {
-    if (ItemQuantity === 1) {
-      // call the delete function in api cart when quantity is 0
-      deletePizzaRow(name);
-    } else {
-      updatePizzaQuantity({ name, quantity: ItemQuantity - 1 });
-    }
+  // function handleIncrement() {
+  //   updatePizzaQuantity({ name, quantity: ItemQuantity + 1 });
+  // }
+  // function handleDecrement() {
+  //   if (ItemQuantity === 1) {
+  //     // call the delete function in api cart when quantity is 0
+  //     deletePizzaRow(name);
+  //   } else {
+  //     updatePizzaQuantity({ name, quantity: ItemQuantity - 1 });
+  //   }
+  // }
+
+  if (isPending) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -94,11 +98,14 @@ function MenuItem({ pizza }) {
         </div>
         <span className="absolute top-1/2 right-4 -translate-y-1/2">
           {!soldOut && ItemQuantity === 0 && (
-            <Button onClick={handleAddToCart}>Add to cart</Button>
+            <Button disabled={isAddingToCart} onClick={handleAddToCart}>
+              Add to cart
+            </Button>
           )}
           {ItemQuantity > 0 && (
             <div className="flex items-center gap-2 p-3.5 font-bold">
-              <Button
+              <UpdateQuantity name={name} ItemQuantity={ItemQuantity} />
+              {/* <Button
                 disabled={isUpdating}
                 type="small"
                 onClick={handleIncrement}
@@ -113,7 +120,7 @@ function MenuItem({ pizza }) {
                 type="small"
               >
                 -
-              </Button>
+              </Button> */}
             </div>
           )}
         </span>

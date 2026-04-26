@@ -1,17 +1,23 @@
 import { Form, redirect } from "react-router";
 import Button from "../../components/Button";
-import { createOrder } from "../../services/apiPizza";
+import { createOrder } from "../../services/apiOrder";
 import { useSelector } from "react-redux";
+import useGetCart from "../cart/useGetCart";
+import { useCreateOrder } from "./useCreateOrder";
 
 function Order() {
   const userName = useSelector((state) => state.user.name);
+
+  // const { placeOrder, isPlacing } = useCreateOrder();
   // const cart = useSelector((state) => state.cart.cart);
+  const { cart, isLoading: isOrdering } = useGetCart();
 
   const inputClass =
     "mx-2 flex-1 rounded-2xl border-2 border-golden-sand-300 bg-golden-sand-50 px-4 py-2 text-mauve-bark-900 placeholder:text-mauve-bark-400 transition-all duration-300 focus:border-burnt-peach-400 focus:outline-none";
 
   return (
     <Form
+      onsub
       method="post"
       className="mx-auto mt-8 flex max-w-2xl flex-col gap-5 px-6 pb-10"
     >
@@ -89,10 +95,12 @@ function Order() {
         </label>
       </div>
 
-      {/* <input type="hidden" name="cart" value={JSON.stringify(cart)} /> */}
+      <input type="hidden" name="cart" value={JSON.stringify(cart)} />
 
       <span className="self-center">
-        <Button type="base">Order Now</Button>
+        <Button disabled={isOrdering} type="base">
+          Order Now
+        </Button>
       </span>
     </Form>
   );
@@ -100,18 +108,50 @@ function Order() {
 
 export async function action({ request }) {
   const formData = await request.formData();
+  console.log("Form Data Entries:", formData);
   const parsedData = Object.fromEntries(formData);
+  const cart = JSON.parse(parsedData.cart);
+  // console.log(cart);
+  const orderPrice = cart.reduce((total, item) => total + item.totalPrice, 0);
+
+  const isPrio = parsedData.priority === "on";
+  console.log(isPrio);
+
+  console.log(orderPrice);
+  // const newOrder = {
+  //   ...parsedData,
+  //   priority: parsedData.priority === "on",
+  //   cart: JSON.parse(parsedData.cart),
+  //   // pizzaId: JSON.parse(parsedData.cart).id,
+  // };
+  //  orderPrice,
+  //     priorityPrice,
+  // const cartTotalPrice =
+
+  console.log(cart);
+
   const newOrder = {
     ...parsedData,
     priority: parsedData.priority === "on",
-    // cart: JSON.parse(parsedData.cart),
+    cart: JSON.parse(parsedData.cart),
+    orderPrice,
+    priorityPrice:
+      parsedData.priority === "on" ? Math.ceil(orderPrice * 0.2) : 0,
   };
-  const data = await createOrder(newOrder);
 
+  // useCreateOrder();
+
+  // console.log("New Order Data:", newOrder);
+
+  // console.log(JSON.parse(parsedData.cart));
+  // const data = await createOrder(newOrder);
+  const data = await createOrder(newOrder);
+  // console.log("Order created:", data);
+  // console.log(data[0].id);
   // store.dispatch(clearCart());
 
-  return null;
-  // return redirect(`/order/${data.id}`);
+  // return null;
+  return redirect(`/order/${data[0].id}`);
 }
 
 export default Order;

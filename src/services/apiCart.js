@@ -55,3 +55,11 @@ export async function deleteCartRow(pizzaName) {
 
   return data;
 }
+
+export async function clearCart() {
+  const { data, error } = await supabase.from("cart").delete().neq("id", 0);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}

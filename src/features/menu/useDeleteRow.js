@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCartRow } from "../../services/apiCart";
 
-export function useDeleteRow(queryKey) {
+export function useDeleteRow() {
   const queryClient = useQueryClient();
   const {
     mutate: deletePizzaRow,
@@ -12,10 +12,11 @@ export function useDeleteRow(queryKey) {
     mutationFn: deleteCartRow,
 
     onSuccess: (data) => {
-      // console.log(data);
-      queryClient.removeQueries({ queryKey: [`pizza: ${queryKey}`] });
+      console.log(data);
 
+      queryClient.invalidateQueries({ queryKey: [`pizza: ${data.name}`] });
       queryClient.invalidateQueries({ queryKey: ["cart"] });
+      // queryClient.removeQueries({ queryKey: [`pizza: ${data.name}`] });
     },
     onError: (error) => {
       console.log(error.message);

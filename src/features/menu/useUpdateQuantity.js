@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { incrementQuantity } from "../../services/apiCart";
 
-export function useUpdateQuantity(queryKey) {
+export function useUpdateQuantity() {
   const queryClient = useQueryClient();
   const {
     mutate: updatePizzaQuantity,
@@ -13,7 +13,8 @@ export function useUpdateQuantity(queryKey) {
 
     onSuccess: (data) => {
       // console.log(data);
-      queryClient.invalidateQueries({ queryKey: [`pizza: ${queryKey}`] });
+      queryClient.invalidateQueries({ queryKey: [`pizza: ${data.name}`] });
+      console.log(data);
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
     onError: (error) => {

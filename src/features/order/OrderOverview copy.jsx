@@ -1,40 +1,32 @@
-import { useParams } from "react-router";
-import { DotLoader } from "react-spinners";
-
-import Error from "../../components/Error";
-
-import { useGetOrderById } from "./useGetOrderById";
+import { useFetcher, useLoaderData } from "react-router";
+import { getOrder } from "../../services/apiPizza";
+import { useEffect } from "react";
+import { convertToPKR } from "../../utilis/currencySlice";
+import { useSelector } from "react-redux";
 
 function OrderOverview() {
-  const { orderID } = useParams();
+  const fetcher = useFetcher();
 
-  // order from supabase
-  const { orderData: order, isPending, error } = useGetOrderById(orderID);
+  useEffect(
+    function () {
+      if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
+    },
+    [fetcher],
+  );
 
+  const order = useLoaderData();
   const {
     cart,
-    status = "Preparing",
+    status,
     priority,
     id,
     estimatedDelivery,
     orderPrice,
     priorityPrice,
-  } = order?.[0] || {};
+  } = order;
 
-  console.log(orderPrice);
-
-  if (isPending) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <DotLoader />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <Error />;
-  }
-
+  // const amountInPKR = convertToPKR();
+  console.log(order);
   return (
     <div className="bg-golden-sand-50 mx-auto flex min-h-full max-w-4xl flex-col gap-8 px-8 py-8">
       <div className="mt-4 flex flex-wrap justify-between gap-4">
@@ -56,14 +48,13 @@ function OrderOverview() {
       <div className="bg-mauve-bark-700 text-md text-golden-sand-100 flex justify-between gap-4 rounded-xl px-4 py-6">
         <p>Only 40 minutes until delivery 😊</p>
         <p className="text-golden-sand-300">
-          Estimated Delivery: {estimatedDelivery?.split("T")[0]}
+          Estimated Delivery: {estimatedDelivery.split("T")[0]}
         </p>
       </div>
 
       <div className="divide-golden-sand-200 border-golden-sand-200 divide-y border-y">
-        {cart?.map((item) => {
+        {cart.map((item) => {
           const { name, quantity, totalPrice, pizzaId } = item;
-
           return (
             <div
               key={pizzaId}
@@ -74,14 +65,14 @@ function OrderOverview() {
                   {quantity}&times; {name}
                 </span>
                 <span className="text-mauve-bark-500 text-sm">
-                  {/* {fetcher.data
+                  {fetcher.data
                     ?.find((menuItem) => pizzaId === menuItem.id)
-                    .ingredients.join(", ") ?? []} */}
+                    .ingredients.join(", ") ?? []}
                 </span>
               </p>
               <p className="text-burnt-peach-600 font-bold">
-                Rs.
-                {totalPrice?.toLocaleString("en-PK")}
+                Rs.{" "}
+                {useSelector(convertToPKR(totalPrice)).toLocaleString("en-PK")}
               </p>
             </div>
           );
@@ -92,27 +83,38 @@ function OrderOverview() {
         <div className="text-golden-sand-200 flex justify-between">
           <p>Price pizza:</p>
           {/* price */}
-          <span>Rs. {orderPrice?.toLocaleString("en-PK")}</span>
+          <span>
+            Rs. {useSelector(convertToPKR(orderPrice)).toLocaleString("en-PK")}
+          </span>
         </div>
         <div className="text-golden-sand-200 flex justify-between">
           <p>Price priority:</p>
           {/* price */}
           <span>
-            Rs.
-            {priorityPrice?.toLocaleString("en-PK")}
+            Rs.{" "}
+            {useSelector(convertToPKR(priorityPrice)).toLocaleString("en-PK")}
           </span>
         </div>
         <div className="border-mauve-bark-600 flex justify-between border-t pt-3">
           <p className="text-golden-sand-100 font-semibold">
             To pay on delivery:
           </p>
+          {/* price */}
           <span className="text-golden-sand-100 font-bold">
-            Rs. {isPending ? "Loading" : orderPrice + priorityPrice}
+            Rs.{" "}
+            {useSelector(
+              convertToPKR(orderPrice + priorityPrice),
+            ).toLocaleString("en-PK")}
           </span>
         </div>
       </div>
     </div>
   );
+}
+
+export async function loader({ params }) {
+  const order = await getOrder(params.orderID);
+  return order;
 }
 
 export default OrderOverview;
